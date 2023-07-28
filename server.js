@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express =require('express');
 const path =require('path');
 const ejsMate =require('ejs-mate');
@@ -17,8 +18,7 @@ app.post("/register",async(req,res)=>{
    try {
     const {name,email,password,address,pincode,city}=req.body;
     await db.query("insert into ejs.student_table (name,email,password,address,pincode,city) values (?,?,?,?,?,?)",[name,email,password,address,pincode,city])
-    await db.query("insert into ejs.user_table (name,email) values (?,?)",[name,email]);
-    return res.json("okay");
+    return res.redirect(`/display/${insertId}`)
    } catch (error) {
     return res.json(error);
    }
